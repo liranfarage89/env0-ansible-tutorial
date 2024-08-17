@@ -6,4 +6,4 @@ ansible_user=ubuntu
 ansible_python_interpreter=/usr/bin/python3
 
 [jenkins]
-jenkinsvm ansible_host=<placeholder_app>
+jenkinsvm ansible_host=54.243.98.228
