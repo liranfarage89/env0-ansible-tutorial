@@ -4,7 +4,6 @@
   become: true
   tasks:
     - name: Install pip3 and unzip
-      changed_when: not ansible_check_mode
       apt:
         update_cache: yes
         pkg:
