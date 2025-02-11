@@ -34,9 +34,12 @@
         repo: deb https://download.docker.com/linux/ubuntu focal stable
         state: present
 
-    - name: Download and run Docker install script
+    - name: Install Docker CE
       check_mode: false
-      shell: curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
+      apt:
+        update_cache: yes
+        name: docker-ce
+        state: present
 
     - name: Install docker Python package
       check_mode: false
