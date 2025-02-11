@@ -3,31 +3,31 @@
   become_user: root
   become: true
   tasks:
-#    - name: Install pip3 and unzip
-#      changed_when: not ansible_check_mode
-#      apt:
-#        update_cache: yes
-#        pkg:
-#        - python3-pip
-#        - unzip
-#      register: result
-#      until: result is not failed
-#      retries: 5
-#      delay: 5
+    - name: Install pip3 and unzip
+      changed_when: not ansible_check_mode
+      apk:
+        update_cache: yes
+        pkg:
+        - python3-pip
+        - unzip
+      register: result
+      until: result is not failed
+      retries: 5
+      delay: 5
 
-#    - name: Add Docker GPG apt Key
-#      apt_key:
-#        url: https://download.docker.com/linux/ubuntu/gpg
-#        state: present
-#    - name: Add Docker Repository
-#      apt_repository:
-#        repo: deb https://download.docker.com/linux/ubuntu focal stable
-#        state: present
-#    - name: Update apt and install docker-ce
-#      apt:
-#        name: docker-ce
-#        state: latest
-#        update_cache: true
+    - name: Add Docker GPG apt Key
+      apk_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+    - name: Add Docker Repository
+      apk_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        state: present
+    - name: Update apt and install docker-ce
+      apk:
+        name: docker-ce
+        state: latest
+        update_cache: true
     - name: Install Docker module for Python
       pip:
         name: docker
