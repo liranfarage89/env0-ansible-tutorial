@@ -2,20 +2,7 @@
 - hosts: all
   become_user: root
   become: true
-  tasks:
-    - name: Install pip3 and unzip
-      changed_when: not ansible_check_mode
-      check_mode: false
-      apt:
-        update_cache: yes
-        pkg:
-        - python3-pip
-        - unzip
-      register: result
-      until: result is not failed
-      retries: 5
-      delay: 5
-
+  pre_tasks:
     - name: Get public IP from environment variable
       changed_when: not ansible_check_mode
       check_mode: false
@@ -52,6 +39,21 @@
         dest: ../Ansible/myKey.pem
         mode: '0400'
       check_mode: false
+
+  tasks:
+    - name: Install pip3 and unzip
+      changed_when: not ansible_check_mode
+      check_mode: false
+      apt:
+        update_cache: yes
+        pkg:
+        - python3-pip
+        - unzip
+      register: result
+      until: result is not failed
+      retries: 5
+      delay: 5
+
     - name: Add Docker GPG apt Key
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
