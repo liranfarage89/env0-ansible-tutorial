@@ -27,11 +27,10 @@
       apt_repository:
         repo: deb https://download.docker.com/linux/ubuntu focal stable
         state: present
-    - name: Update apt and install docker.io
-      apt:
-        name: docker.io
-        state: latest
-        update_cache: true
+
+    - name: Download and run Docker install script
+      shell: curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
+
     - name: Install Docker module for Python
       pip:
         name: docker
