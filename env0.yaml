@@ -1,9 +1,11 @@
-version: 1
-name: ansible-setup
+version: 2
 
-steps:
-  - name: Save private key to file
-    id: get_private_key
-    run: |
-      echo "$SSH_PRIVATE_KEY" > Ansible/myKey.pem
-      chmod 400 Ansible/myKey.pem
+deploy:
+  steps:
+    setupVariables:
+      after:
+        - name: Save private key to file
+          id: get_private_key
+          run: |
+            echo "$SSH_PRIVATE_KEY" > Ansible/myKey.pem
+            chmod 400 Ansible/myKey.pem
