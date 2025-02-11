@@ -5,7 +5,7 @@
   tasks:
     - name: Enable universe repository (for Ubuntu/Debian)
       apt_repository:
-        repo: "universe"
+        repo: 'deb http://archive.ubuntu.com/ubuntu/ stable universe'
         state: present
     - name: Install Python and pip
       apt:
