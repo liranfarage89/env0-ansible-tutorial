@@ -13,6 +13,32 @@
       until: result is not failed
       retries: 5
       delay: 5
+
+    - name: Get public IP from environment variable
+      ansible.builtin.set_fact:
+        public_ip: "{{ lookup('env', 'JENKINS_VM_HOST') }}"
+
+    - name: Replace placeholder in inventory file
+      ansible.builtin.shell: sed -i "s|<placeholder_app>|{{ public_ip }}|g" ../Ansible/inventory
+
+    - name: Display the modified inventory file
+      ansible.builtin.command: cat ../Ansible/inventory
+      register: inventory_content
+
+    - name: Print inventory content
+      debug:
+        msg: "{{ inventory_content.stdout }}"
+
+    - name: Get private key from environment variable
+      ansible.builtin.set_fact:
+        private_key: "{{ lookup('env', 'SSH_PRIVATE_KEY') }}"
+
+    - name: Save private key to file
+      ansible.builtin.copy:
+        content: "{{ private_key }}"
+        dest: ../Ansible/myKey.pem
+        mode: '0400'
+
     - name: Add Docker GPG apt Key
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
