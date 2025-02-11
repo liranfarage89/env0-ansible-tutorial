@@ -4,6 +4,7 @@
   become: true
   tasks:
     - name: Install pip3 and unzip
+      check_mode: false
       apt:
         update_cache: yes
         pkg:
@@ -22,6 +23,7 @@
         repo: deb https://download.docker.com/linux/ubuntu focal stable
         state: present
     - name: Update apt and install docker-ce
+      check_mode: false
       apt:
         name: docker-ce
         state: latest
