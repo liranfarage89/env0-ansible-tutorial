@@ -5,12 +5,12 @@ steps:
       name: Terraform Environment
       vcs:
         repo: https://github.com/liranfarage89/env0-ansible-tutorial
-        path: terraform
+        path: Terraform
   - name: Configure Infrastructure
     environment:
       name: Ansible Environment
       vcs:
         repo: https://github.com/liranfarage89/env0-ansible-tutorial
-        path: ansible
+        path: Ansible
     depends_on:
       - Provision Infrastructure
