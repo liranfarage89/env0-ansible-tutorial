@@ -10,6 +10,7 @@ environments:
     name: Configure Infrastructure
     vcs:
       type: 'ansible'
+      version: 'latest'
       repository: https://github.com/liranfarage89/env0-ansible-tutorial
       path: Ansible
     needs:
