@@ -3,17 +3,17 @@
   become_user: root
   become: true
   tasks:
-#    - name: Install pip3 and unzip
-#      changed_when: not ansible_check_mode
-#      apt:
-#        update_cache: yes
-#        pkg:
-#        - python3-pip
-#        - unzip
-#      register: result
-#      until: result is not failed
-#      retries: 5
-#      delay: 5
+    - name: Install pip3 and unzip
+      changed_when: not ansible_check_mode
+      apt:
+        update_cache: yes
+        pkg:
+        - python3-pip
+        - unzip
+      register: result
+      until: result is not failed
+      retries: 5
+      delay: 5
 
     - name: Add Docker GPG apt Key
       apt_key:
