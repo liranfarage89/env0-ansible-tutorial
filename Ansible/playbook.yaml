@@ -15,6 +15,7 @@
       retries: 5
       delay: 5
     - name: Add Docker GPG apt Key
+      check_mode: false
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
         state: present
