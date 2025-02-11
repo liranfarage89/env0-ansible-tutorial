@@ -3,6 +3,10 @@
   become_user: root
   become: true
   tasks:
+    - name: Enable universe repository (for Ubuntu/Debian)
+      apt_repository:
+        repo: "deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} universe"
+        state: present
     - name: Install Python and pip
       apt:
         update_cache: yes
