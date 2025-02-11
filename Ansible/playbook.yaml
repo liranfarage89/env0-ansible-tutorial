@@ -5,7 +5,7 @@
   tasks:
     - name: Enable universe repository (for Ubuntu/Debian)
       apt_repository:
-        repo: "ppa:deadsnakes/ppa"
+        repo: "universe"
         state: present
     - name: Install Python and pip
       apt:
