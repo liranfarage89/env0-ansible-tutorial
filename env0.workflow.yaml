@@ -1,0 +1,16 @@
+version: 1
+steps:
+  - name: Provision Infrastructure
+    environment:
+      name: Terraform Environment
+      vcs:
+        repo: https://github.com/liranfarage89/env0-ansible-tutorial
+        path: terraform
+  - name: Configure Infrastructure
+    environment:
+      name: Ansible Environment
+      vcs:
+        repo: https://github.com/liranfarage89/env0-ansible-tutorial
+        path: ansible
+    depends_on:
+      - Provision Infrastructure
