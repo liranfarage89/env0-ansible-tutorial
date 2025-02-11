@@ -1,49 +1,36 @@
 ---
-- hosts: all
-  become_user: root
-  become: true
-  pre_tasks:
+- hosts: localhost
+  tasks:
     - name: Get public IP from environment variable
-      changed_when: not ansible_check_mode
-      check_mode: false
       ansible.builtin.set_fact:
         public_ip: "{{ lookup('env', 'JENKINS_VM_HOST') }}"
 
     - name: Replace placeholder in inventory file
-      changed_when: not ansible_check_mode
       ansible.builtin.shell: sed -i "s|<placeholder_app>|{{ public_ip }}|g" ../Ansible/inventory
 
     - name: Display the modified inventory file
-      changed_when: not ansible_check_mode
-      check_mode: false
       ansible.builtin.command: cat ../Ansible/inventory
       register: inventory_content
 
     - name: Print inventory content
-      changed_when: not ansible_check_mode
-      check_mode: false
       debug:
         msg: "{{ inventory_content.stdout }}"
 
     - name: Get private key from environment variable
-      changed_when: not ansible_check_mode
-      check_mode: false
       ansible.builtin.set_fact:
         private_key: "{{ lookup('env', 'SSH_PRIVATE_KEY') }}"
 
-
     - name: Save private key to file
-      changed_when: not ansible_check_mode
       ansible.builtin.copy:
         content: "{{ private_key }}"
         dest: ../Ansible/myKey.pem
         mode: '0400'
-      check_mode: false
-
+- hosts: all
+  become_user: root
+  become: true
   tasks:
     - name: Install pip3 and unzip
       changed_when: not ansible_check_mode
-      check_mode: false
       apt:
         update_cache: yes
         pkg:
